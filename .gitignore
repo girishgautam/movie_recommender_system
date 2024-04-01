@@ -1,0 +1,6 @@
+*.csv
+*checkpoint.ipynb
+*.ipynb_checkpoints
+*.python-version
+*.pkl
+.env
