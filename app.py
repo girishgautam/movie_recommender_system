@@ -9,16 +9,32 @@ load_dotenv()
 api_key = os.getenv('API_KEY')
 
 
+# def fetch_poster(movie_id):
+#     '''
+#     fetching posters for the movies from TMDB website using an api
+#     '''
+#     url = 'https://api.themoviedb.org/3/movie/{}?api_key={}&language=en-US'.format(movie_id, api_key)
+#     response = requests.get(url)
+#     data = response.json()
+#     poster_path = data['poster_path']
+#     full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
+#     return full_path
+
 def fetch_poster(movie_id):
     '''
     fetching posters for the movies from TMDB website using an api
     '''
+    # try:
     url = 'https://api.themoviedb.org/3/movie/{}?api_key={}&language=en-US'.format(movie_id, api_key)
     response = requests.get(url)
     data = response.json()
     poster_path = data['poster_path']
+    if poster_path is None:
+        return 'no_image.jpg'
     full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
     return full_path
+    # except TypeError:
+    #     return None
 
 def recommend(movie):
     movie_index = movies_df[movies_df['title'] == movie].index[0]
@@ -63,7 +79,3 @@ if st.button('Recommend'):
     with col5:
         st.text(names[4])
         st.image(posters[4])
-
-
-
-
